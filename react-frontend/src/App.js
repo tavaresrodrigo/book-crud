@@ -6,6 +6,8 @@ import "./App.css";
 import AddBook from "./components/add-book.component";
 import Book from "./components/book.component";
 import BookList from "./components/books-list.component";
+import User from './components/user.component'
+import UserList from './components/user-list.component'
 
 class App extends Component {
   render() {
@@ -16,6 +18,11 @@ class App extends Component {
             BookLibrary WebApp
           </Link>
           <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+              <Link to={"/users"} className="nav-link">
+                Users
+              </Link>
+            </li>
             <li className="nav-item">
               <Link to={"/books"} className="nav-link">
                 My Books
@@ -34,6 +41,8 @@ class App extends Component {
             <Route exact path={["/", "/books"]} component={BookList} />
             <Route exact path="/add" component={AddBook} />
             <Route path="/books/:id" component={Book} /> 
+            <Route path="/users/:id" component={User} />
+            <Route path="/users" component={UserList} />
           </Switch>
         </div>
       </div>

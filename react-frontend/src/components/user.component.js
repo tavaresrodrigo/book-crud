@@ -13,12 +13,11 @@ export default class User extends Component {
 
     this.state = {
       currentUser: {
-        id: null,
-        name: "",
-        password: "",
+        username: "",
         email: "",
-        image: "",
-        isActive: false
+        password: "",
+        isAdmin: true,
+        imagePath: ""
       },
       message: ""
     };

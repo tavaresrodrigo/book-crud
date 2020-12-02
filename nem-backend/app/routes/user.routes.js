@@ -1,29 +1,29 @@
 module.exports = app => {
-  const Books = require("../controllers/book.controller");
+  const Users = require("../controllers/User.controller");
 
   var router = require("express").Router();
 
-  // Create a new Book
-  router.post("/", Books.create);
+  // Create a new User
+  router.post("/users", Users.create);
 
-  // Retrieve all Books
-  router.get("/", Books.findAll);
+  // Retrieve all Users
+  router.get("/users", Users.findAll);
 
-  // Retrieve all published Books
-  router.get("/published", Books.findAllPublished);
+  // Retrieve all Admin Users
+  router.get("/users/admins", Users.findAllAdmin);
 
-  // Retrieve a single Book with id
-  router.get("/:id", Books.findOne);
+  // Retrieve a single User with id
+  router.get("/users/:id", Users.findOne);
 
-  // Update a Book with id
-  router.put("/:id", Books.update);
+  // Update a User with id
+  router.put("/users/:id", Users.update);
 
-  // Delete a Book with id
-  router.delete("/:id", Books.delete);
+  // Delete a User with id
+  router.delete("/users/:id", Users.delete);
 
-  // Create a new Book
-  router.delete("/", Books.deleteAll);
+  // Delete a user
+  router.delete("/users", Users.deleteAll);
 
-  app.use("/api/books", router);
+  app.use("/api/Users", router);
 };
   

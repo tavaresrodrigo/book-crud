@@ -70,7 +70,7 @@ export default class AddBook extends Component {
       <div className="submit-form">
         {this.state.submitted ? (
           <div>
-            <h4>You submitted successfully!</h4>
+            <h4>You submitted the book successfully!</h4>
             <button className="btn btn-success" onClick={this.newBook}>
               Add
             </button>

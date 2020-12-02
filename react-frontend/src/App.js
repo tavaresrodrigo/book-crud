@@ -8,6 +8,7 @@ import Book from "./components/book.component";
 import BookList from "./components/books-list.component";
 import User from './components/user.component'
 import UserList from './components/user-list.component'
+import AddUser from './components/add-user.component'
 
 class App extends Component {
   render() {
@@ -21,6 +22,11 @@ class App extends Component {
           <li className="nav-item">
               <Link to={"/users"} className="nav-link">
                 Users
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/add-user"} className="nav-link">
+                Add User
               </Link>
             </li>
             <li className="nav-item">
@@ -43,6 +49,7 @@ class App extends Component {
             <Route path="/books/:id" component={Book} /> 
             <Route path="/users/:id" component={User} />
             <Route path="/users" component={UserList} />
+            <Route path="/add-user" component={AddUser} />
           </Switch>
         </div>
       </div>

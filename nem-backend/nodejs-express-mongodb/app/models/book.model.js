@@ -12,7 +12,7 @@ module.exports = mongoose => {
       const { __v, _id, ...object } = this.toObject();
       object.id = _id;
       return object;
-    });
+    }); //check
   
     const Book = mongoose.model("book", schema);
     return Book;

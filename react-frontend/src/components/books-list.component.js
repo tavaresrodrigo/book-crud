@@ -158,6 +158,30 @@ export default class BooksList extends Component {
               </div>
               <div>
                 <label>
+                  <strong>Author:</strong>
+                </label>{" "}
+                {currentBook.author}
+              </div>
+              <div>
+                <label>
+                  <strong>Release Year:</strong>
+                </label>{" "}
+                {currentBook.release_year}
+              </div>
+              <div>
+                <label>
+                  <strong>Genre:</strong>
+                </label>{" "}
+                {currentBook.genre}
+              </div>
+              <div>
+                <label>
+                  <strong>Number of Pages:</strong>
+                </label>{" "}
+                {currentBook.pages}
+              </div>
+              <div>
+                <label>
                   <strong>Status:</strong>
                 </label>{" "}
                 {currentBook.published ? "Published" : "Pending"}

@@ -13,6 +13,10 @@ exports.create = (req, res) => {
   const book = new Book({
     title: req.body.title,
     description: req.body.description,
+    author: req.body.author,
+    release_year: req.body.release_year, 
+    genre: req.body.genre,
+    pages: req.bodypages,
     published: req.body.published ? req.body.published : false
   });
 

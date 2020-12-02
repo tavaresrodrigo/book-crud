@@ -6,6 +6,10 @@ export default class Book extends Component {
     super(props);
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeAuthor = this.onChangeAuthor.bind(this);
+    this.onChangeRelease_year = this.onChangeRelease_year.bind(this);
+    this.onChangeGenre = this.onChangeGenre.bind(this);
+    this.onChangePages = this.onChangePages.bind(this);
     this.getBook = this.getBook.bind(this);
     this.updatePublished = this.updatePublished.bind(this);
     this.updateBook = this.updateBook.bind(this);
@@ -16,6 +20,10 @@ export default class Book extends Component {
         id: null,
         title: "",
         description: "",
+        author: "",
+        release_year: 2020, 
+        genre:"",
+        pages:0,
         published: false
       },
       message: ""
@@ -50,6 +58,51 @@ export default class Book extends Component {
     }));
   }
 
+  onChangeAuthor(e) {
+    const author = e.target.value;
+    
+    this.setState(prevState => ({
+      currentBook: {
+        ...prevState.currentBook,
+        author: author
+      }
+    }));
+  }
+
+  onChangeRelease_year(e) {
+    const release_year = e.target.value;
+    
+    this.setState(prevState => ({
+      currentBook: {
+        ...prevState.currentBook,
+        release_year: release_year
+      }
+    }));
+  }
+
+  onChangeGenre(e) {
+    const genre = e.target.value;
+    
+    this.setState(prevState => ({
+      currentBook: {
+        ...prevState.currentBook,
+         genre: genre
+      }
+    }));
+  }
+
+  onChangePages(e) {
+    const pages = e.target.value;
+    
+    this.setState(prevState => ({
+      currentBook: {
+        ...prevState.currentBook,
+         pages: pages
+      }
+    }));
+  }
+  
+
   getBook(id) {
     BookDataService.get(id)
       .then(response => {
@@ -67,6 +120,10 @@ export default class Book extends Component {
     var data = {
       id: this.state.currentBook.id,
       title: this.state.currentBook.title,
+      author: this.state.currentBook.author,
+      release_year: this.state.currentBook.release_year, 
+      genre:this.state.currentBook.genre,
+      pages:this.state.currentBook.pages,
       description: this.state.currentBook.description,
       published: status
     };
@@ -133,6 +190,16 @@ export default class Book extends Component {
                 />
               </div>
               <div className="form-group">
+                <label htmlFor="author">Author</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="author"
+                  value={currentBook.author}
+                  onChange={this.onChangeAuthor}
+                />
+              </div>
+              <div className="form-group">
                 <label htmlFor="description">Description</label>
                 <input
                   type="text"
@@ -140,6 +207,36 @@ export default class Book extends Component {
                   id="description"
                   value={currentBook.description}
                   onChange={this.onChangeDescription}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="release_year">release_year</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="release_year"
+                  value={currentBook.release_year}
+                  onChange={this.onChangeRelease_year}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="genre">genre</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="genre"
+                  value={currentBook.genre}
+                  onChange={this.onChangeGenre}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="pages">pages</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="pages"
+                  value={currentBook.pages}
+                  onChange={this.onChangePages}
                 />
               </div>
 

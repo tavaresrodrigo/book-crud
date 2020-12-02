@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require('mongoose');
 const app = express();
+const listEndpoints = require('express-list-endpoints');
+
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -80,7 +82,7 @@ app.get("/", (req, res) => {
 
 // Importing routes
 require("./app/routes/books.routes")(app);
-require("./app/routes/books.routes")(app);
+require("./app/routes/users.routes")(app);
 
 // Creating user Role collection
 
@@ -124,4 +126,5 @@ function initial() {
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
+  console.log(listEndpoints(app));
 });

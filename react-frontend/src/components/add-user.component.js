@@ -16,7 +16,7 @@ export default class AddUser extends Component {
         username: "",
         email: "",
         password: "",
-        imagePath: "",
+        photo: "",
 
         admin: false,
         submitted: false
@@ -80,7 +80,7 @@ export default class AddUser extends Component {
       username: "",
       email: "",
       password: "",
-      imagePath: "",
+      photo: "",
 
       admin: false,
       submitted: false
@@ -133,7 +133,7 @@ export default class AddUser extends Component {
                 id="password"
                 required
                 value={this.state.password}
-                onChange={this.onChangeDescription}
+                onChange={this.onChangePassword}
                 name="password"
               />
             </div>
@@ -141,7 +141,7 @@ export default class AddUser extends Component {
             <div className="form-group">
               <label htmlFor="photo">Photo</label>
               <input
-                type="image"
+                type="text"
                 alt={this.state.photo}
                 className="form-control"
                 id="photo"

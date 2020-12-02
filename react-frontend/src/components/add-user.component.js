@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import BookDataService from "../services/book.service";
+import UserDataService from "../services/user.service";
 
-export default class AddBook extends Component {
+export default class AddUser extends Component {
   constructor(props) {
     super(props);
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.saveBook = this.saveBook.bind(this);
-    this.newBook = this.newBook.bind(this);
+    this.saveUser = this.saveUser.bind(this);
+    this.newUser = this.newUser.bind(this);
 
     this.state = {
       id: null,
@@ -31,13 +31,13 @@ export default class AddBook extends Component {
     });
   }
 
-  saveBook() {
+  saveUser() {
     var data = {
       title: this.state.title,
       description: this.state.description
     };
 
-    BookDataService.create(data)
+    UserDataService.create(data)
       .then(response => {
         this.setState({
           id: response.data.id,
@@ -54,7 +54,7 @@ export default class AddBook extends Component {
       });
   }
 
-  newBook() {
+  newUser() {
     this.setState({
       id: null,
       title: "",
@@ -71,7 +71,7 @@ export default class AddBook extends Component {
         {this.state.submitted ? (
           <div>
             <h4>You submitted successfully!</h4>
-            <button className="btn btn-success" onClick={this.newBook}>
+            <button className="btn btn-success" onClick={this.newUser}>
               Add
             </button>
           </div>
@@ -103,7 +103,7 @@ export default class AddBook extends Component {
               />
             </div>
 
-            <button onClick={this.saveBook} className="btn btn-success">
+            <button onClick={this.saveUser} className="btn btn-success">
               Submit
             </button>
           </div>

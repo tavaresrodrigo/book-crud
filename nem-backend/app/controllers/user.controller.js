@@ -1,5 +1,5 @@
 const db = require("../models");
-const User = db.users; //Check out, might need to change
+const User = db.users; 
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -130,9 +130,9 @@ exports.deleteAll = (req, res) => {
     });
 };
 
-// Find all published Users
-exports.findAllPublished = (req, res) => {
-  User.find({ published: true })
+// Find all admin Users
+exports.findAllAdmin = (req, res) => {
+  User.find({ admin: true })
     .then(data => {
       res.send(data);
     })

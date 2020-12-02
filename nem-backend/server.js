@@ -74,8 +74,10 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to our application." });
+  res.json({ message: "Welcome to the book library application - TUDublin Web Application Architecture" });
 });
+
+require("./app/routes/books.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

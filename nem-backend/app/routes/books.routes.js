@@ -1,5 +1,5 @@
 module.exports = app => {
-  const Books = require("../controllers/Book.controller.js");
+  const Books = require("../controllers/book.controller");
 
   var router = require("express").Router();
 
@@ -24,6 +24,6 @@ module.exports = app => {
   // Create a new Book
   router.delete("/", Books.deleteAll);
 
-  app.use("/api/Books", router);
+  app.use("/api/books", router);
 };
   

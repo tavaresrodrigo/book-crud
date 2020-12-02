@@ -17,7 +17,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // //test
-// const MONGODB_URI = "mongodb+srv://sean:yhXILpC45HYdLqxA@cluster0.g1ksv.mongodb.net/book-crud?retryWrites=true&w=majority";
 
 // mongoose.connect(MONGODB_URI, {
 //     useNewUrlParser: true,
@@ -77,6 +76,8 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the book library application - TUDublin Web Application Architecture" });
 });
 
+// Importing routes
+require("./app/routes/books.routes")(app);
 require("./app/routes/books.routes")(app);
 
 // set port, listen for requests

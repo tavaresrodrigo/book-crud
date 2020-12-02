@@ -36,7 +36,7 @@ export default class BooksList extends Component {
     BookDataService.getAll()
       .then(response => {
         this.setState({
-          bookss: response.data
+          books: response.data
         });
         console.log(response.data);
       })

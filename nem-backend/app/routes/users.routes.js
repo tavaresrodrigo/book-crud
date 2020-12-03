@@ -25,7 +25,7 @@ module.exports = app => {
   // Delete a user
   router.delete("/", Users.deleteAll);
 
-  app.use("/api/users", Auth.middlewareAuth, router);
+  app.use("/api/users", router);
 
 
 };

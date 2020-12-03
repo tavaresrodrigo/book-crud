@@ -67,7 +67,6 @@ export default class AddBook extends Component {
     })
   }
 onChangeImage = e => {
-  //this.setState({ image: event.target.files[0] });
   console.log("file to upload:", e.target.files[0])
   let file = e.target.files[0]
   if (file) {
@@ -234,27 +233,13 @@ onChangeImage = e => {
               Submit
             </button> 
             </div> 
-          {/* {this.fileData()}  */}
+        
         </div> 
-              {/* <label  htmlFor="image">Image </label>
-              <input
-                type="file"
-                className="form-control"
-                id="exampleInputFile"
-                required
-                value={this.state.image}
-                onChange={this.onChangeImage}
-                name="image"
-              /> */}
             </div>
             
-              
-            {/* <button onClick={this.saveBook} className="btn btn-success">
-              Submit
-            </button> */}
           </div>
         )}
       </div>
     );
   }
-}//test
+}

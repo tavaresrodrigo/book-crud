@@ -9,6 +9,7 @@ export default class Book extends Component {
     this.onChangeAuthor = this.onChangeAuthor.bind(this);
     this.onChangeRelease_year = this.onChangeRelease_year.bind(this);
     this.onChangeGenre = this.onChangeGenre.bind(this);
+    this.onChangeImage = this.onChangeImage.bind(this);
     this.onChangePages = this.onChangePages.bind(this);
     this.getBook = this.getBook.bind(this);
     this.updatePublished = this.updatePublished.bind(this);
@@ -23,6 +24,7 @@ export default class Book extends Component {
         author: "",
         release_year: 2020, 
         genre:"",
+        image: null,
         pages:0,
         published: false
       },
@@ -91,6 +93,27 @@ export default class Book extends Component {
     }));
   }
 
+  _handleReaderLoaded = (readerEvt) => {
+    let binaryString = readerEvt.target.result
+    this.setState({
+      image: btoa(binaryString)
+    })
+  }
+
+  onChangeImage = e => {
+    //this.setState({ image: event.target.files[0] });
+    console.log("file to upload:", e.target.files[0])
+    let file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = this._handleReaderLoaded.bind(this)
+  
+      reader.readAsBinaryString(file)
+  
+  }
+}
+
   onChangePages(e) {
     const pages = e.target.value;
     
@@ -124,6 +147,7 @@ export default class Book extends Component {
       release_year: this.state.currentBook.release_year, 
       genre:this.state.currentBook.genre,
       pages:this.state.currentBook.pages,
+      image:this.state.currentBook.image,
       description: this.state.currentBook.description,
       published: status
     };
@@ -220,17 +244,22 @@ export default class Book extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="genre">genre</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="genre"
-                  value={currentBook.genre}
-                  onChange={this.onChangeGenre}
-                />
+              <label htmlFor="genre"> Genre  <br></br>    
+                  <select value={this.state.genre} onChange={this.onChangeGenre}>
+                    <option value="Action/Adventure">Action/Adventure</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Biographies/Autobiographies">Biographies/Autobiographies</option>
+                    <option value="Classics">Classics</option>
+                    <option value="Other">Other</option>            
+                  </select>
+                </label>
               </div>
               <div className="form-group">
-                <label htmlFor="pages">pages</label>
+                <label htmlFor="pages">Pages</label>
                 <input
                   type="text"
                   className="form-control"
@@ -238,6 +267,10 @@ export default class Book extends Component {
                   value={currentBook.pages}
                   onChange={this.onChangePages}
                 />
+              </div>
+              <div className="form-group">
+              <div><label htmlFor="Book Cover">Book Cover</label></div>
+                <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept=".jpeg , jpg"  /> 
               </div>
 
               <div className="form-group">

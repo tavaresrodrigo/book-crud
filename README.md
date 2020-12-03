@@ -4,18 +4,18 @@ Web application that interacts with a MongoDB database using the MERN stack we h
 
 ## Pulling the code :
 
-* 1: Clone the project repository.
+1. Clone the project repository.
 ```bash
 
 $ git clone https://github.com/tavaresrodrigo/book-crud
 ```
 
-* 2: Open up command prompt and chnage directory to the location of the project, you must be able to see the .
+2. Open up command prompt and chnage directory to the location of the project, you must be able to see the .
 
 ```bash
 $ cd book-crud
 ```
-* 3: You must be able to see the **react-frontend** and the **nem-backend/**: 
+3. You must be able to see the **react-frontend** and the **nem-backend/**: 
 
 
 ## Running the backend

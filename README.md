@@ -20,21 +20,26 @@ $ cd book-crud
 
 
 ## Running the backend
-* In the project folder, Change directory into \nem-backend
-* Use command npm install.
-* Use command node server.js to run the backend:
-    * If you get an error with this, check to see if the file \app\config\db.config.js was cloned. If not you will need to recreate it.
-    Code as follows. File=db.config.js, File start:
+* In the project folder, Change directory into \nem-backend and run **npm install** to install the npm packages and **node server.js** to start the backend.
 
+```bash
+$ npm install 
+$ node server.js
+```
+
+* If the backend does not start, check to see if the file \app\config\db.config.js was cloned. If not you will need to recreate it.
+    Code as follows. File=db.config.js, File start:
+```
     module.exports = {
     url: "[databaseuri]"
      };
-    File End.
-    5.2: create called ".env" in directory react-frontend.
-    Code as follows. File=.env, File start:
-    PORT=8081
-    File End.
-* Once the backend is running, open up another command prompt and chnage directory to the location of the project.
+```
+
+* Yo can check to see if the backend is running accessing the url **http://localhost:8080/**
+
+```bash
+$ curl http://localhost:8080/
+```
 
 ## Running the frontend
 

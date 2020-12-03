@@ -7,7 +7,7 @@ module.exports = mongoose => {
         release_year: Number, 
         genre:String,
         pages:Number,
-        image:String,
+        image: String,
         //image:String,
         published: Boolean
       },

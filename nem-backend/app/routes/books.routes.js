@@ -25,6 +25,7 @@ module.exports = app => {
   // Create a new Book
   router.delete("/", Books.deleteAll);
 
-  app.use("/api/books", router);
+  // app.use("/api/books",Auth.middlewareAuth,router);
+  app.use("/api/books", router)
 };
   

@@ -121,7 +121,7 @@ export default class AddBook extends Component {
         ) : (
           <div>
             <div className="form-group">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">Title *</label>
               <input
                 type="text"
                 className="form-control"
@@ -134,11 +134,12 @@ export default class AddBook extends Component {
             </div>
 
             <div className="form-group">
-                <label htmlFor="author">Author</label>
+                <label htmlFor="author">Author *</label>
                 <input
                   type="text"
                   className="form-control"
                   id="author"
+                  required
                   value={this.state.author}
                   onChange={this.onChangeAuthor}
                   name="author"
@@ -156,29 +157,35 @@ export default class AddBook extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="release_year">release_year</label>
+                <label htmlFor="release_year">Release Year *</label>
                 <input
                   type="text"
                   className="form-control"
                   id="release_year"
+                  required
                   value={this.state.release_year}
                   onChange={this.onChangeRelease_year}
                   name="release_year"
+                  maxLength={4}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="genre">genre</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="genre"
-                  value={this.state.genre}
-                  onChange={this.onChangeGenre}
-                  name="genre"
-                />
+                <label htmlFor="genre"> Genre  <br></br>    
+                  <select value={this.state.genre} onChange={this.onChangeGenre}>
+                    <option value="Action/Adventure">Action/Adventure</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Biographies/Autobiographies">Biographies/Autobiographies</option>
+                    <option value="Classics">Classics</option>
+                    <option value="Other">Other</option>            
+                  </select>
+                </label>
               </div>
               <div className="form-group">
-                <label htmlFor="pages">pages</label>
+                <label htmlFor="pages">Number of Pages</label>
                 <input
                   type="text"
                   className="form-control"

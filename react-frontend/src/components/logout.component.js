@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import UserDataService from "../services/user.service";
-let passwordMatch = false;
 
 export default class User extends Component {
   constructor(props) {
     super(props);
-    this.onChangeUserName = this.onChangeUserName.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeDescription = this.onChangeDescription.bind(this);
     this.getUser = this.getUser.bind(this);
-    this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
+    this.updatePublished = this.updatePublished.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
 
@@ -28,39 +27,30 @@ export default class User extends Component {
     this.getUser(this.props.match.params.id);
   }
 
-  onChangeUserName(e) {
-    const username = e.target.value;
+  onChangeName(e) {
+    const name = e.target.value;
 
     this.setState(function(prevState) {
       return {
         currentUser: {
           ...prevState.currentUser,
-          username: username
+          name: name
         }
       };
     });
   }
 
-  onChangePassword(e) {
-    const password = e.target.value;
+  onChangeDescription(e) {
+    const description = e.target.value;
     
     this.setState(prevState => ({
       currentUser: {
         ...prevState.currentUser,
-        password: password
+        description: description
       }
     }));
   }
 
-  onChangeConfirmPassword(e) {
-    const password = this.state.currentUser.password
-    const passwordConfirm = e.target.value
-    if (password !== passwordConfirm) {
-      passwordMatch = false;
-    } else {
-      passwordMatch = true;
-    }
-  }
   getUser(id) {
     UserDataService.get(id)
       .then(response => {
@@ -74,8 +64,30 @@ export default class User extends Component {
       });
   }
 
+  updatePublished(status) {
+    var data = {
+      id: this.state.currentUser.id,
+      name: this.state.currentUser.name,
+      description: this.state.currentUser.description,
+      published: status
+    };
+
+    UserDataService.update(this.state.currentUser.id, data)
+      .then(response => {
+        this.setState(prevState => ({
+          currentUser: {
+            ...prevState.currentUser,
+            published: status
+          }
+        }));
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
   updateUser() {
-    if (passwordMatch === true) {
     UserDataService.update(
       this.state.currentUser.id,
       this.state.currentUser
@@ -89,10 +101,7 @@ export default class User extends Component {
       .catch(e => {
         console.log(e);
       });
-  } else {
-    alert("Passwords do not match")
   }
-}
 
   deleteUser() {    
     UserDataService.delete(this.state.currentUser.id)
@@ -121,7 +130,7 @@ export default class User extends Component {
                   className="form-control"
                   id="email"
                   value={currentUser.email}
-                  readOnly
+                  onChange={this.onChangeName}
                 />
               </div>
               <div className="form-group">
@@ -130,35 +139,34 @@ export default class User extends Component {
                   type="text"
                   className="form-control"
                   id="username"
-                  value={currentUser.username}
-                  onChange={this.onChangeUserName}
+                  value={currentUser.description}
+                  onChange={this.username}
                 />
               </div>
+
               <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                required
-                value={currentUser.password}
-                onChange={this.onChangePassword}
-                name="password"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="passwordConfirm">Confirm Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="passwordConfirm"
-                required
-                value={this.state.passwordConfirm}
-                onChange={this.onChangeConfirmPassword}
-                name="passwordConfirm"
-              />
-            </div>
+                <label>
+                  <strong>Admin</strong>
+                </label>
+                {currentUser.admin ? "True" : "False"}
+              </div>
             </form>
+
+            {currentUser.admin ? (
+              <button
+                className="badge badge-primary mr-2"
+                onClick={() => this.updatePublished(false)}
+              >
+                UnPublish
+              </button>
+            ) : (
+              <button
+                className="badge badge-primary mr-2"
+                onClick={() => this.updatePublished(true)}
+              >
+                
+              </button>
+            )}
 
             <button
               className="badge badge-danger mr-2"

@@ -109,19 +109,6 @@ export default class AddUser extends Component {
         ) : (
           <div>
             <div className="form-group">
-              <label htmlFor="email" >Email</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                required
-                value={this.state.email}
-                onChange={this.onChangeEmail}
-                name="email"
-              />
-            </div>
-
-            <div className="form-group">
               <label htmlFor="username">Username</label>
               <input
                 type="text"
@@ -133,7 +120,18 @@ export default class AddUser extends Component {
                 name="username"
               />
             </div>
-
+            <div className="form-group">
+              <label htmlFor="email" >Email</label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                required
+                value={this.state.email}
+                onChange={this.onChangeEmail}
+                name="email"
+              />
+            </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
@@ -146,20 +144,18 @@ export default class AddUser extends Component {
                 name="password"
               />
             </div>
-
             <div className="form-group">
-              <label  htmlFor="photo">Photo</label>
+              <label htmlFor="photo">Photo</label>
               <input
                 type="file"
                 className="form-control"
-                id="exampleInputFile"
+                id="photo"
                 required
                 value={this.state.photo}
                 onChange={this.onChangePhoto}
                 name="photo"
               />
             </div>
-
             <button onClick={this.saveUser} className="btn btn-success">
               Submit
             </button>

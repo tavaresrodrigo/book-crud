@@ -119,16 +119,6 @@ export default class UsersList extends Component {
           <ul className="list-group">
             {users &&
               users.map((user, index) => (
-                <><li
-                  className={
-                    "list-group-item " +
-                    (index === currentIndex ? "active" : "")
-                  }
-                  onClick={() => this.setActiveUser(user, index)}
-                  key={index}
-                >
-                  {user.name}
-                </li>
                   <li
                     className={
                       "list-group-item " +
@@ -138,16 +128,9 @@ export default class UsersList extends Component {
                     key={index}
                   >
                     {user.email}
-                  </li></>
+                  </li>
               ))}
           </ul>
-
-          <button
-            className="m-3 btn btn-sm btn-danger"
-            onClick={this.removeAllUsers}
-          >
-            Remove All
-          </button>
         </div>
         <div className="col-md-6">
           {currentUser ? (

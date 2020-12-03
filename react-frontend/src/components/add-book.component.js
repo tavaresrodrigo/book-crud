@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import BookDataService from "../services/book.service";
 
+
 export default class AddBook extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +11,7 @@ export default class AddBook extends Component {
     this.onChangeRelease_year= this.onChangeRelease_year.bind(this);
     this.onChangeGenre = this.onChangeGenre.bind(this);
     this.onChangePages = this.onChangePages.bind(this);
+    this.onChangeImage = this.onChangeImage.bind(this);
     this.saveBook = this.saveBook.bind(this);
     this.newBook = this.newBook.bind(this);
 
@@ -20,6 +22,7 @@ export default class AddBook extends Component {
       author: "",
       release_year: 2020, 
       genre:"",
+      image: null,
       pages:0,
       published: false,
 
@@ -56,6 +59,26 @@ export default class AddBook extends Component {
     });
   }
 
+  
+  _handleReaderLoaded = (readerEvt) => {
+    let binaryString = readerEvt.target.result
+    this.setState({
+      image: btoa(binaryString)
+    })
+  }
+onChangeImage = e => {
+  //this.setState({ image: event.target.files[0] });
+  console.log("file to upload:", e.target.files[0])
+  let file = e.target.files[0]
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = this._handleReaderLoaded.bind(this)
+
+    reader.readAsBinaryString(file)
+
+}
+}
   onChangePages(e) {
     this.setState({
       pages: e.target.value
@@ -63,13 +86,15 @@ export default class AddBook extends Component {
   }
 
   saveBook() {
+    console.log("thanks matt");
     var data = {
       title: this.state.title,
       description: this.state.description,
       author: this.state.author,
       release_year:this.state.release_year, 
       genre:this.state.genre,
-      pages:this.state.pages
+      pages:this.state.pages,
+      image:this.state.image
     };
 
     BookDataService.create(data)
@@ -79,9 +104,10 @@ export default class AddBook extends Component {
           title: response.data.title,
           description: response.data.description,
           author: response.data.author,
-          release_year:response.data.release_year, 
-          genre:response.data.genre,
-          pages:response.data.pages,
+          release_year: response.data.release_year, 
+          genre: response.data.genre,
+          pages: response.data.pages,
+          image: response.data.image,
           published: response.data.published,
 
           submitted: true
@@ -102,6 +128,7 @@ export default class AddBook extends Component {
       release_year:2020, 
       genre:"",
       pages:0,
+      image: "",
       published: false,
 
       submitted: false
@@ -121,7 +148,7 @@ export default class AddBook extends Component {
         ) : (
           <div>
             <div className="form-group">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">Title *</label>
               <input
                 type="text"
                 className="form-control"
@@ -134,11 +161,12 @@ export default class AddBook extends Component {
             </div>
 
             <div className="form-group">
-                <label htmlFor="author">Author</label>
+                <label htmlFor="author">Author *</label>
                 <input
                   type="text"
                   className="form-control"
                   id="author"
+                  required
                   value={this.state.author}
                   onChange={this.onChangeAuthor}
                   name="author"
@@ -156,29 +184,35 @@ export default class AddBook extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="release_year">release_year</label>
+                <label htmlFor="release_year">Release Year *</label>
                 <input
                   type="text"
                   className="form-control"
                   id="release_year"
+                  required
                   value={this.state.release_year}
                   onChange={this.onChangeRelease_year}
                   name="release_year"
+                  maxLength={4}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="genre">genre</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="genre"
-                  value={this.state.genre}
-                  onChange={this.onChangeGenre}
-                  name="genre"
-                />
+                <label htmlFor="genre"> Genre  <br></br>    
+                  <select value={this.state.genre} onChange={this.onChangeGenre}>
+                    <option value="Action/Adventure">Action/Adventure</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Thriller">Thriller</option>
+                    <option value="Biographies/Autobiographies">Biographies/Autobiographies</option>
+                    <option value="Classics">Classics</option>
+                    <option value="Other">Other</option>            
+                  </select>
+                </label>
               </div>
               <div className="form-group">
-                <label htmlFor="pages">pages</label>
+                <label htmlFor="pages">Number of Pages</label>
                 <input
                   type="text"
                   className="form-control"
@@ -188,14 +222,39 @@ export default class AddBook extends Component {
                   name="pages"
                 />
               </div>
-            
-
-            <button onClick={this.saveBook} className="btn btn-success">
+              
+              <div className="form-group">
+              <div> 
+         
+              <label htmlFor="Book Cover">Book Cover</label>
+            <div> 
+                
+                <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept=".jpeg , jpg"/> 
+                <button onClick={this.saveBook} className="btn btn-success">
               Submit
-            </button>
+            </button> 
+            </div> 
+          {/* {this.fileData()}  */}
+        </div> 
+              {/* <label  htmlFor="image">Image </label>
+              <input
+                type="file"
+                className="form-control"
+                id="exampleInputFile"
+                required
+                value={this.state.image}
+                onChange={this.onChangeImage}
+                name="image"
+              /> */}
+            </div>
+            
+              
+            {/* <button onClick={this.saveBook} className="btn btn-success">
+              Submit
+            </button> */}
           </div>
         )}
       </div>
     );
   }
-}
+}//test

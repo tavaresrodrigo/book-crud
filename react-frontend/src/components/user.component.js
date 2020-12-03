@@ -124,35 +124,35 @@ export default class User extends Component {
             <h4>User</h4>
             <form>
               <div className="form-group">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="email">Email</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  value={currentUser.name}
+                  id="email"
+                  value={currentUser.email}
                   onChange={this.onChangeName}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="username">Username</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="description"
+                  id="username"
                   value={currentUser.description}
-                  onChange={this.onChangeDescription}
+                  onChange={this.username}
                 />
               </div>
 
               <div className="form-group">
                 <label>
-                  <strong>Status:</strong>
+                  <strong>Admin</strong>
                 </label>
-                {currentUser.published ? "Published" : "Pending"}
+                {currentUser.admin ? "True" : "False"}
               </div>
             </form>
 
-            {currentUser.published ? (
+            {currentUser.admin ? (
               <button
                 className="badge badge-primary mr-2"
                 onClick={() => this.updatePublished(false)}

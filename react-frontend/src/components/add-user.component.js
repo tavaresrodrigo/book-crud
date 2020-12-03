@@ -41,7 +41,16 @@ export default class AddUser extends Component {
     });
   }
 
-  onChangePhoto(e) {
+  toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
+  async onChangePhoto(e) {
+    debugger
+    let photoBase64 = await this.toBase64(e.target.files[0])
     this.setState({
       photo: e.target.value
     });
@@ -100,7 +109,7 @@ export default class AddUser extends Component {
         ) : (
           <div>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email" >Email</label>
               <input
                 type="email"
                 className="form-control"
@@ -139,12 +148,11 @@ export default class AddUser extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="photo">Photo</label>
+              <label  htmlFor="photo">Photo</label>
               <input
-                type="text"
-                alt={this.state.photo}
+                type="file"
                 className="form-control"
-                id="photo"
+                id="exampleInputFile"
                 required
                 value={this.state.photo}
                 onChange={this.onChangePhoto}

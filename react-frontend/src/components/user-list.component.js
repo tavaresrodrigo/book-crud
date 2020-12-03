@@ -161,15 +161,15 @@ export default class UsersList extends Component {
               </div>
               <div>
                 <label>
-                  <strong>Description:</strong>
+                  <strong>Username:</strong>
                 </label>{" "}
-                {currentUser.description}
+                {currentUser.username}
               </div>
               <div>
                 <label>
-                  <strong>Status:</strong>
+                  <strong>Admin:</strong>
                 </label>{" "}
-                {currentUser.published ? "Published" : "Pending"}
+                {currentUser.admin ? "True" : "False"}
               </div>
 
               <Link

@@ -15,8 +15,7 @@ exports.create = (req, res) => {
     author: req.body.author,
     release_year: req.body.release_year, 
     genre: req.body.genre,
-    pages: req.body.pages,
-    image: req.body.image,
+    pages: req.bodypages,
     published: req.body.published ? req.body.published : false
   });
 

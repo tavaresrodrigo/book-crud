@@ -179,14 +179,7 @@ export default class BooksList extends Component {
                   <strong>Number of Pages:</strong>
                 </label>{" "}
                 {currentBook.pages}
-                </div>
-              <div>
-                <label>
-                  <strong>Image   </strong>
-                </label>
-                <img src={"data:image/jpeg;base64,"+currentBook.image} width="40%" height="40%" max-width="500px" max-height="500px"/>
               </div>
-              
               <div>
                 <label>
                   <strong>Status:</strong>

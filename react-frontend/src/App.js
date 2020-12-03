@@ -9,6 +9,9 @@ import BookList from "./components/books-list.component";
 import User from './components/user.component'
 import UserList from './components/user-list.component'
 import AddUser from './components/add-user.component'
+import Logout from './components/logout.component'
+import Login from './components/login.component'
+
 
 class App extends Component {
   render() {
@@ -39,6 +42,11 @@ class App extends Component {
                 Add Book
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to={"/logout"} className="nav-link">
+                Logout
+              </Link>
+            </li>
           </div>
         </nav>
 
@@ -50,6 +58,8 @@ class App extends Component {
             <Route path="/users/:id" component={User} />
             <Route path="/users" component={UserList} />
             <Route path="/add-user" component={AddUser} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/login" component={Login} />
           </Switch>
         </div>
       </div>

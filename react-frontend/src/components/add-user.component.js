@@ -7,16 +7,17 @@ export default class AddUser extends Component {
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangePhoto = this.onChangePhoto.bind(this);
     this.saveUser = this.saveUser.bind(this);
     this.newUser = this.newUser.bind(this);
+    this.onchangeImage2 = this.onChangeImage2.bind(this);
+    this.onChangeImage = this.onChangeImage.bind(this);
 
     this.state = {
-        id: null,
+        id: "",
         username: "",
         email: "",
         password: "",
-        photo: "",
+        image: "",
 
         admin: false,
         submitted: false
@@ -29,9 +30,32 @@ export default class AddUser extends Component {
     });
   }
 
+  _handleReaderLoaded = (readerEvt) => {
+    let binaryString = readerEvt.target.result
+    this.setState({
+      image: btoa(binaryString)
+    })
+  }
+
+  onChangeImage = e => {
+    console.log("file to upload:", e.target.files[0])
+    let file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = this._handleReaderLoaded.bind(this)
+      reader.readAsBinaryString(file)
+  }
+  }
+
   onChangeUsername(e) {
     this.setState({
       username: e.target.value
+    });
+  }
+
+  onChangeImage2(e) {
+    this.setState({
+      image: e.target.value
     });
   }
 
@@ -40,30 +64,15 @@ export default class AddUser extends Component {
       password: e.target.value
     });
   }
-
-  toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-});
-
-  async onChangePhoto(e) {
-    debugger
-    let photoBase64 = await this.toBase64(e.target.files[0])
-    this.setState({
-      photo: e.target.value
-    });
-  }
-
   saveUser() {
     var data = {
       email: this.state.email,
       username: this.state.username,
       password: this.state.password,
-      photo: this.state.photo
+      image: this.state.image,
+      admin: this.state.admin
     };
-
+    console.log(data)
     UserDataService.create(data)
       .then(response => {
         this.setState({
@@ -71,12 +80,12 @@ export default class AddUser extends Component {
           email: response.data.email,
           username: response.data.username,
           password: response.data.password,
-          photo: response.data.photo,
+          image: response.data.image,
           admin: response.data.admin,
 
           submitted: true
         });
-        console.log(response.data);
+        console.log("backEndResponse: ",response.data);
       })
       .catch(e => {
         console.log(e);
@@ -89,7 +98,7 @@ export default class AddUser extends Component {
       username: "",
       email: "",
       password: "",
-      photo: "",
+      image: "",
 
       admin: false,
       submitted: false
@@ -144,18 +153,12 @@ export default class AddUser extends Component {
                 name="password"
               />
             </div>
+
             <div className="form-group">
-              <label htmlFor="photo">Photo</label>
-              <input
-                type="file"
-                className="form-control"
-                id="photo"
-                required
-                value={this.state.photo}
-                onChange={this.onChangePhoto}
-                name="photo"
-              />
+              <label htmlFor="image">Image</label>
+              <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept=".jpeg , jpg"/> 
             </div>
+
             <button onClick={this.saveUser} className="btn btn-success">
               Submit
             </button>

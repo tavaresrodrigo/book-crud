@@ -226,7 +226,7 @@ onChangeImage = e => {
               <div> 
          
               <label htmlFor="Book Cover">Book Cover</label>
-            <div> 
+            <div className="form-group"> 
                 
                 <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept=".jpeg , jpg"/> 
                 <button onClick={this.saveBook} className="btn btn-success">

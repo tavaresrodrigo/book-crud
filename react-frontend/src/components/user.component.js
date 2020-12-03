@@ -18,7 +18,7 @@ export default class User extends Component {
         email: "",
         password: "",
         isAdmin: true,
-        imagePath: ""
+        image: null
       },
       message: ""
     };
@@ -40,6 +40,27 @@ export default class User extends Component {
       };
     });
   }
+
+  _handleReaderLoaded = (readerEvt) => {
+    let binaryString = readerEvt.target.result
+    this.setState({
+      image: btoa(binaryString)
+    })
+  }
+
+  onChangeImage = e => {
+    //this.setState({ image: event.target.files[0] });
+    console.log("file to upload:", e.target.files[0])
+    let file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = this._handleReaderLoaded.bind(this)
+  
+      reader.readAsBinaryString(file)
+  
+  }
+}
 
   onChangePassword(e) {
     const password = e.target.value;
@@ -158,6 +179,11 @@ export default class User extends Component {
                 name="passwordConfirm"
               />
             </div>
+
+            <div className="form-group">
+              <div><label htmlFor="Book Cover">Book Cover</label></div>
+                <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept=".jpeg , jpg"  /> 
+              </div>
             </form>
 
             <button

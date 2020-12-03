@@ -127,7 +127,7 @@ export default class UsersList extends Component {
                     onClick={() => this.setActiveUser(user, index)}
                     key={index}
                   >
-                    {user.email}
+                    {user.username}
                   </li>
               ))}
           </ul>
@@ -153,6 +153,12 @@ export default class UsersList extends Component {
                   <strong>Admin:</strong>
                 </label>{" "}
                 {currentUser.admin ? "True" : "False"}
+              </div>
+              <div>
+                <label>
+                  <strong>Image   </strong>
+                </label>
+                <img src={"data:image/jpeg;base64,"+currentUser.image} width="40%" height="40%" max-width="500px" max-height="500px"/>
               </div>
 
               <Link

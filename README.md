@@ -23,7 +23,7 @@ $ cd book-crud
 * In the project folder, Change directory into \nem-backend
 * Use command npm install.
 * Use command node server.js to run the backend:
-⋅⋅* If you get an error with this, check to see if the file \app\config\db.config.js was cloned. If not you will need to recreate it.
+    * If you get an error with this, check to see if the file \app\config\db.config.js was cloned. If not you will need to recreate it.
     Code as follows. File=db.config.js, File start:
 
     module.exports = {
@@ -41,8 +41,8 @@ $ cd book-crud
 * In the project folder, Change directory into \react-frontend
 * Use command npm install.
 * Use command npm start to start the frontend (The app should open on your webbrowser http://localhost:8081/).
-⋅⋅*  If you are getting an error, delete the folder \react-frontend\node_modules and the file package-lock.json
-⋅⋅*  Rerun the command npm install
-⋅⋅*  Rerun the command np start
+    *  If you are getting an error, delete the folder \react-frontend\node_modules and the file package-lock.json
+    *  Rerun the command npm install
+    *  Rerun the command np start
 * To open up the app, on your webbrowser and search http://localhost:8081/.
 * To close the app, on each command prombt press ctrl+c and confirm to stop the back/frontend.

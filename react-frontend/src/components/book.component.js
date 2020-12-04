@@ -234,7 +234,7 @@ export default class Book extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="release_year">release_year</label>
+                <label htmlFor="release_year">Release Year</label>
                 <input
                   type="text"
                   className="form-control"
@@ -246,6 +246,7 @@ export default class Book extends Component {
               <div className="form-group">
               <label htmlFor="genre"> Genre  <br></br>    
                   <select value={this.state.genre} onChange={this.onChangeGenre}>
+                  <option value="Action/Adventure"></option>
                     <option value="Action/Adventure">Action/Adventure</option>
                     <option value="Fantasy">Fantasy</option>
                     <option value="Horror">Horror</option>
@@ -269,8 +270,8 @@ export default class Book extends Component {
                 />
               </div>
               <div className="form-group">
-              <div><label htmlFor="Book Cover">Book Cover</label></div>
-                <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept=".jpeg , jpg"  /> 
+              <div><label htmlFor="Book Cover">Book Cover </label>
+                <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept="image/jpg, image/jpeg"  /> 
               </div>
 
               <div className="form-group">
@@ -278,6 +279,7 @@ export default class Book extends Component {
                   <strong>Status:</strong>
                 </label>
                 {currentBook.published ? "Published" : "Pending"}
+              </div>
               </div>
             </form>
 

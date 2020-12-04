@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import BookDataService from "../services/book.service";
-
-
 export default class AddBook extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +12,6 @@ export default class AddBook extends Component {
     this.onChangeImage = this.onChangeImage.bind(this);
     this.saveBook = this.saveBook.bind(this);
     this.newBook = this.newBook.bind(this);
-
     this.state = {
       id: null,
       title: "",
@@ -25,30 +22,67 @@ export default class AddBook extends Component {
       image: null,
       pages:0,
       published: false,
-
       submitted: false
     };
+    //state checker for reguired values
+    this.req =[
+      "reqtitle",
+      "reqauthor"
+      ]
   }
-
   onChangeTitle(e) {
+    //this checks to see if the value  is empty, if so it deletes it from the req array
+    if(e.target.value !==""){
+      var index = this.req.indexOf("reqtitle")
+      if (index !== -1) {
+      this.req.splice(index, 1);
+      }
+    }
+    else{
+      var index = this.req.indexOf("reqtitle")
+      if (index === -1) {
+      this.req.push("reqtitle")
+      }
+    }
     this.setState({
       title: e.target.value
     });
   }
-
   onChangeDescription(e) {
     this.setState({
       description: e.target.value
     });
   }
-
   onChangeAuthor(e) {
+    if(e.target.value !==""){
+      var index = this.req.indexOf("reqauthor")
+      if (index !== -1) {
+      this.req.splice(index, 1);
+      }
+    }
+    else{
+      var index = this.req.indexOf("reqauthor")
+      if (index === -1) {
+      this.req.push("reqauthor")
+      }
+    }
     this.setState({
       author: e.target.value
     });
   }
-
   onChangeRelease_year(e) {
+    if(e.target.value !==""){
+      var index = this.req.indexOf("reqrelease_year")
+      if (index !== -1) {
+      this.req.splice(index, 1);
+      }
+    }
+    else{
+      var index = this.req.indexOf("reqrelease_year")
+      if (index === -1) {
+      this.req.push("reqrelease_year")
+      }
+    }
     this.setState({
       release_year: e.target.value
     });
@@ -58,8 +92,6 @@ export default class AddBook extends Component {
       genre: e.target.value
     });
   }
-
-  
   _handleReaderLoaded = (readerEvt) => {
     let binaryString = readerEvt.target.result
     this.setState({
@@ -67,26 +99,25 @@ export default class AddBook extends Component {
     })
   }
 onChangeImage = e => {
-  //this.setState({ image: event.target.files[0] });
   console.log("file to upload:", e.target.files[0])
   let file = e.target.files[0]
   if (file) {
     const reader = new FileReader();
-
     reader.onload = this._handleReaderLoaded.bind(this)
-
     reader.readAsBinaryString(file)
-
 }
 }
   onChangePages(e) {
+    if( e.isInt){
+      alert("Please Enter a number");
+    }
+    else{
     this.setState({
       pages: e.target.value
-    });
+    });};
+  ;
   }
-
   saveBook() {
-    console.log("thanks matt");
     var data = {
       title: this.state.title,
       description: this.state.description,
@@ -96,7 +127,6 @@ onChangeImage = e => {
       pages:this.state.pages,
       image:this.state.image
     };
-
     BookDataService.create(data)
       .then(response => {
         this.setState({
@@ -109,7 +139,6 @@ onChangeImage = e => {
           pages: response.data.pages,
           image: response.data.image,
           published: response.data.published,
-
           submitted: true
         });
         console.log(response.data);
@@ -118,7 +147,6 @@ onChangeImage = e => {
         console.log(e);
       });
   }
-
   newBook() {
     this.setState({
       id: null,
@@ -130,11 +158,9 @@ onChangeImage = e => {
       pages:0,
       image: "",
       published: false,
-
       submitted: false
     });
   }
-
   render() {
     return (
       <div className="submit-form">
@@ -159,7 +185,6 @@ onChangeImage = e => {
                 name="title"
               />
             </div>
-
             <div className="form-group">
                 <label htmlFor="author">Author *</label>
                 <input
@@ -199,6 +224,7 @@ onChangeImage = e => {
               <div className="form-group">
                 <label htmlFor="genre"> Genre  <br></br>    
                   <select value={this.state.genre} onChange={this.onChangeGenre}>
+                    <option value=""></option>
                     <option value="Action/Adventure">Action/Adventure</option>
                     <option value="Fantasy">Fantasy</option>
                     <option value="Horror">Horror</option>
@@ -214,7 +240,7 @@ onChangeImage = e => {
               <div className="form-group">
                 <label htmlFor="pages">Number of Pages</label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   id="pages"
                   value={this.state.pages}
@@ -222,39 +248,22 @@ onChangeImage = e => {
                   name="pages"
                 />
               </div>
-              
               <div className="form-group">
               <div> 
-         
-              <label htmlFor="Book Cover">Book Cover</label>
+              <label htmlFor="Book Cover">Book Cover    *Only accepts .jpeg/jpg</label>
             <div> 
-                
-                <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept=".jpeg , jpg"/> 
-                <button onClick={this.saveBook} className="btn btn-success">
+                <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept="image/jpg, image/jpeg"/> 
+                <br></br>
+                <br></br>
+                <button onClick={this.saveBook} disabled={this.req.length!==0}  className="btn btn-success">
               Submit
             </button> 
             </div> 
-          {/* {this.fileData()}  */}
         </div> 
-              {/* <label  htmlFor="image">Image </label>
-              <input
-                type="file"
-                className="form-control"
-                id="exampleInputFile"
-                required
-                value={this.state.image}
-                onChange={this.onChangeImage}
-                name="image"
-              /> */}
             </div>
-            
-              
-            {/* <button onClick={this.saveBook} className="btn btn-success">
-              Submit
-            </button> */}
           </div>
         )}
       </div>
     );
   }
-}//test
+}

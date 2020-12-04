@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, withRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Cookies from 'universal-cookie';
@@ -20,19 +20,27 @@ class App extends Component {
       loggedIn: false
     };
   }
-  componentDidMount() {
+
+  componentDidMount() { // 1 vez
+    console.log('componentDidMount')
+    this.unlisten = this.props.history.listen((location, action) => {
+      console.log("on route change");
+      const isLoggedIn = cookies.get('password') !== '' && cookies.get('id') !== ''
+      if (isLoggedIn !== this.state.loggedIn) {
+        this.setState({
+          loggedIn: isLoggedIn
+        })
+      }
+    });
+
     this.setState({
       loggedIn: cookies.get('password') !== '' && cookies.get('id') !== ''
     })
   }
-  componentDidUpdate(previousProps, previousState) {
-    if (previousState.loggedIn !== this.state.loggedIn) {
-      console.log('Update:', cookies.get('password') !== '' && cookies.get('id') !== '')
-        this.setState({
-          loggedIn: cookies.get('password') !== '' && cookies.get('id') !== ''
-        })
-    }
+  componentWillUnmount() {
+    this.unlisten();
   }
+
   render() {
     return (
       <div>
@@ -88,4 +96,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

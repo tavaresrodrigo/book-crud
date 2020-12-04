@@ -23,20 +23,19 @@ class Login extends Component {
   }
 
 connect () {
-  console.log(this.username)
-  console.log(this.password)
   cookies.set("id", "")
   cookies.set("password", "")
-AuthDataService.login(this.username, this.password).then((response) => { 
-  cookies.set("id", response.data.id)
-  cookies.set("password", response.data.password)
-  this.props.history.push("books")
-})
-.catch((err) => {
-  console.log("Authentication failed, please inform the correct credentials")
-  console.log(cookies.get('id'))
-  console.log(cookies.get('password'))
-});
+
+  AuthDataService.login(this.username, this.password).then((response) => { 
+    cookies.set("id", response.data.id)
+    cookies.set("password", response.data.password)
+    this.props.history.push("books")
+  })
+  .catch((err) => {
+    console.log("Authentication failed, please inform the correct credentials")
+    console.log(cookies.get('id'))
+    console.log(cookies.get('password'))
+  });
 
 
 }
@@ -55,11 +54,10 @@ handlePasswordChange (event) {
       <div className="d-flex justify-content-around">
         {currentUser ? (
           <div className = "card">
-            
             <form className="text-center border border-light p-3">
             <p className="h4 mb-4">Sign in</p>
-              <div className="text-center border border-light p-3">
-                <label htmlFor="email"> User Email</label>
+              <div className="text-center p-3">
+                <label className="text-center  p-3" htmlFor="email"> User Email</label>
                 <input
                   type="email"
                   className="defaultLoginFormEmail"
@@ -69,8 +67,8 @@ handlePasswordChange (event) {
                 />
               </div>
 
-              <div className="text-center border border-light p-1">
-                <label htmlFor="password">Password</label>
+              <div className="text-center  p-1">
+                <label className="text-center  p-3" htmlFor="password">Password </label>
                 <input
                   type="password"
                   className="defaultLoginFormPassword"
@@ -83,7 +81,7 @@ handlePasswordChange (event) {
             </form>
             <button
               type="submit"
-              className="btn btn-success"
+              className="btn btn-success p-3"
               onClick={this.connect.bind(this)}
             >
               Login

@@ -1,5 +1,6 @@
 module.exports = app => {
-  const Users = require("../controllers/User.controller");
+  const Users = require("../controllers/user.controller");
+  const Auth =  require('../controllers/auth.controller');
 
   var router = require("express").Router();
 
@@ -24,6 +25,9 @@ module.exports = app => {
   // Delete a user
   router.delete("/", Users.deleteAll);
 
-  app.use("/api/users", router);
+  // app.use("/api/users",Auth.middlewareAuth,router);
+  app.use("/api/users",router);
+  app.get("/api/login", Users.login);
+
 };
   

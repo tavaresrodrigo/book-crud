@@ -9,7 +9,6 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a Book
   const book = new Book({
     title: req.body.title,
     description: req.body.description,

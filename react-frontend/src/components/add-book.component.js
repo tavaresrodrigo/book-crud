@@ -278,8 +278,13 @@ onChangeImage = e => {
               <div className="form-group">
               <div> 
          
+
               <label htmlFor="Book Cover">Book Cover    *Only accepts .jpeg/jpg</label>
             <div> 
+
+              <label htmlFor="Book Cover">Book Cover</label>
+            <div className="form-group"> 
+
                 
                 <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept="image/jpg, image/jpeg"/> 
                 <br></br>

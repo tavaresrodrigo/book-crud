@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import UserDataService from "../services/user.service";
+let passwordMatch = false;
 
 export default class User extends Component {
   constructor(props) {
     super(props);
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeUserName = this.onChangeUserName.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
     this.getUser = this.getUser.bind(this);
-    this.updatePublished = this.updatePublished.bind(this);
+    this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
 
@@ -17,7 +18,7 @@ export default class User extends Component {
         email: "",
         password: "",
         isAdmin: true,
-        imagePath: ""
+        image: null
       },
       message: ""
     };
@@ -27,30 +28,60 @@ export default class User extends Component {
     this.getUser(this.props.match.params.id);
   }
 
-  onChangeName(e) {
-    const name = e.target.value;
+  onChangeUserName(e) {
+    const username = e.target.value;
 
     this.setState(function(prevState) {
       return {
         currentUser: {
           ...prevState.currentUser,
-          name: name
+          username: username
         }
       };
     });
   }
 
-  onChangeDescription(e) {
-    const description = e.target.value;
+  _handleReaderLoaded = (readerEvt) => {
+    let binaryString = readerEvt.target.result
+    this.setState({
+      image: btoa(binaryString)
+    })
+  }
+
+  onChangeImage = e => {
+    //this.setState({ image: event.target.files[0] });
+    console.log("file to upload:", e.target.files[0])
+    let file = e.target.files[0]
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = this._handleReaderLoaded.bind(this)
+  
+      reader.readAsBinaryString(file)
+  
+  }
+}
+
+  onChangePassword(e) {
+    const password = e.target.value;
     
     this.setState(prevState => ({
       currentUser: {
         ...prevState.currentUser,
-        description: description
+        password: password
       }
     }));
   }
 
+  onChangeConfirmPassword(e) {
+    const password = this.state.currentUser.password
+    const passwordConfirm = e.target.value
+    if (password !== passwordConfirm) {
+      passwordMatch = false;
+    } else {
+      passwordMatch = true;
+    }
+  }
   getUser(id) {
     UserDataService.get(id)
       .then(response => {
@@ -64,30 +95,8 @@ export default class User extends Component {
       });
   }
 
-  updatePublished(status) {
-    var data = {
-      id: this.state.currentUser.id,
-      name: this.state.currentUser.name,
-      description: this.state.currentUser.description,
-      published: status
-    };
-
-    UserDataService.update(this.state.currentUser.id, data)
-      .then(response => {
-        this.setState(prevState => ({
-          currentUser: {
-            ...prevState.currentUser,
-            published: status
-          }
-        }));
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
   updateUser() {
+    if (passwordMatch === true) {
     UserDataService.update(
       this.state.currentUser.id,
       this.state.currentUser
@@ -101,7 +110,10 @@ export default class User extends Component {
       .catch(e => {
         console.log(e);
       });
+  } else {
+    alert("Passwords do not match")
   }
+}
 
   deleteUser() {    
     UserDataService.delete(this.state.currentUser.id)
@@ -124,49 +136,55 @@ export default class User extends Component {
             <h4>User</h4>
             <form>
               <div className="form-group">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="email">Email</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  value={currentUser.name}
-                  onChange={this.onChangeName}
+                  id="email"
+                  value={currentUser.email}
+                  readOnly
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="username">Username</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="description"
-                  value={currentUser.description}
-                  onChange={this.onChangeDescription}
+                  id="username"
+                  value={currentUser.username}
+                  onChange={this.onChangeUserName}
                 />
               </div>
+              <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                required
+                value={currentUser.password}
+                onChange={this.onChangePassword}
+                name="password"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="passwordConfirm">Confirm Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="passwordConfirm"
+                required
+                value={this.state.passwordConfirm}
+                onChange={this.onChangeConfirmPassword}
+                name="passwordConfirm"
+              />
+            </div>
 
-              <div className="form-group">
-                <label>
-                  <strong>Status:</strong>
-                </label>
-                {currentUser.published ? "Published" : "Pending"}
+            <div className="form-group">
+              <div><label htmlFor="Book Cover">Book Cover</label></div>
+                <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept=".jpeg , jpg"  /> 
               </div>
             </form>
-
-            {currentUser.published ? (
-              <button
-                className="badge badge-primary mr-2"
-                onClick={() => this.updatePublished(false)}
-              >
-                UnPublish
-              </button>
-            ) : (
-              <button
-                className="badge badge-primary mr-2"
-                onClick={() => this.updatePublished(true)}
-              >
-                
-              </button>
-            )}
 
             <button
               className="badge badge-danger mr-2"

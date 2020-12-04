@@ -14,9 +14,10 @@ exports.create = (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
-    photo: req.body.photo,
+    image: req.body.image,
     admin: req.body.admin ? req.body.admin : false
   });
+ 
 
   // Save User in the database
   user
@@ -31,6 +32,28 @@ exports.create = (req, res) => {
       });
     });
 };
+
+exports.login = (req, res) => {
+  const username = req.query.username;
+  const password = req.query.password;
+  var condition = username ? { username: { $regex: new RegExp(username), $options: "i" } } : {};
+  
+  User.findOne(condition)
+    .then(data => {
+      console.log(data, password)
+      if (data.password == password){
+        res.send(data)
+      }else{
+        res.status(401).send({message: "Password does not match"});
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "User does not exist"
+      });
+    });
+}
 
 // Retrieve all Users from the database.
 exports.findAll = (req, res) => {

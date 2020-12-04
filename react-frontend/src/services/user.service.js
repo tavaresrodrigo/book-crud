@@ -24,6 +24,10 @@ class UserDataService {
   findByEmail(email) {
     return http.get(`/users?email=${email}`);
   }
+
+  login(username, password) {
+    return http.get(`/login?username=${username}&password=${password}`)
+  }
 }
 
 export default new UserDataService();

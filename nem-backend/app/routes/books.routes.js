@@ -1,5 +1,6 @@
 module.exports = app => {
   const Books = require("../controllers/book.controller");
+  const Auth =  require('../controllers/auth.controller');
 
   var router = require("express").Router();
 
@@ -24,6 +25,7 @@ module.exports = app => {
   // Create a new Book
   router.delete("/", Books.deleteAll);
 
-  app.use("/api/books", router);
+  // app.use("/api/books",Auth.middlewareAuth,router);
+  app.use("/api/books", router)
 };
   

@@ -119,16 +119,6 @@ export default class UsersList extends Component {
           <ul className="list-group">
             {users &&
               users.map((user, index) => (
-                <><li
-                  className={
-                    "list-group-item " +
-                    (index === currentIndex ? "active" : "")
-                  }
-                  onClick={() => this.setActiveUser(user, index)}
-                  key={index}
-                >
-                  {user.name}
-                </li>
                   <li
                     className={
                       "list-group-item " +
@@ -137,17 +127,10 @@ export default class UsersList extends Component {
                     onClick={() => this.setActiveUser(user, index)}
                     key={index}
                   >
-                    {user.email}
-                  </li></>
+                    {user.username}
+                  </li>
               ))}
           </ul>
-
-          <button
-            className="m-3 btn btn-sm btn-danger"
-            onClick={this.removeAllUsers}
-          >
-            Remove All
-          </button>
         </div>
         <div className="col-md-6">
           {currentUser ? (
@@ -161,15 +144,21 @@ export default class UsersList extends Component {
               </div>
               <div>
                 <label>
-                  <strong>Description:</strong>
+                  <strong>Username:</strong>
                 </label>{" "}
-                {currentUser.description}
+                {currentUser.username}
               </div>
               <div>
                 <label>
-                  <strong>Status:</strong>
+                  <strong>Admin:</strong>
                 </label>{" "}
-                {currentUser.published ? "Published" : "Pending"}
+                {currentUser.admin ? "True" : "False"}
+              </div>
+              <div>
+                <label>
+                  <strong>Image   </strong>
+                </label>
+                <img src={"data:image/jpeg;base64,"+currentUser.image} width="40%" height="40%" max-width="500px" max-height="500px"/>
               </div>
 
               <Link

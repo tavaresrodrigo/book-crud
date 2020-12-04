@@ -1,28 +1,77 @@
 # book-crud
 
-Steps to run :
-1: Download/ Clone the project repository.
-2: Open up command prompt and chnage directory to the location of the project.
-3: In the project folder, Change directory into \nem-backend
-4: Use command npm install.
-5: Use command node server.js to run the backend:
-    5.1: If you get an error with this, check to see if the file \app\config\db.config.js was cloned. If not you will need to recreate it.
-    Code as follows. File=db.config.js, File start:
+Web application that interacts with a MongoDB database using the MERN stack we have been covering in this module. The application implements the 4 CRUD operations (Create/Read/Update/Delete).
 
+## Pulling the code :
+
+* Clone the project repository.
+```bash
+
+$ git clone https://github.com/tavaresrodrigo/book-crud
+```
+
+* Open up command prompt and chnage directory to the location of the project, you must be able to see the .
+
+```bash
+$ cd book-crud
+```
+
+* You must be able to see the **react-frontend** and the **nem-backend/**, it measn you have successfully pulled the code and you should not proceed to build it. 
+
+
+## Running the backend
+* In the project folder, Change directory into /nem-backend and run **npm install** to install the npm packages dependencies and **npm start** to start the backend.
+
+```bash
+$ npm install 
+$ npm start 
+```
+* The last command will show you a list of apis routes being exposed by the backend. 
+```
+$node server.js
+Server is running on port 8080.
+[
+  { path: '/', methods: [ 'GET' ], middleware: [ 'anonymous' ] },
+  {
+    path: '/api/books',
+    methods: [ 'POST', 'GET', 'DELETE' ],
+    middleware: [ 'anonymous' ]
+  },
+  {
+    path: '/api/books/published',
+    methods: [ 'GET' ],
+    middleware: [ 'anonymous' ]
+  },
+  [...]
+ ```
+ 
+* If the backend does not start, check to see if the file /app/config/db.config.js was cloned. If not you will need to recreate it.
+    Code as follows. File=db.config.js, File start:
+```
     module.exports = {
-    url: "mongodb+srv://sean:yhXILpC45HYdLqxA@cluster0.g1ksv.mongodb.net/book-crud?retryWrites=true&w=majority"
+    url: "[**databaseurl**]"
      };
-    File End.
-    5.2: create called ".env" in directory react-frontend.
-    Code as follows. File=.env, File start:
-    PORT=8081
-    File End.
-6: Once the backend is running, open up another command prompt and chnage directory to the location of the project.
-7: In the project folder, Change directory into \react-frontend
-8: Use command npm install.
-9: Use command npm start to start the frontend (The app should open on your webbrowser http://localhost:8081/).
-    9.1: If you are getting an error, delete the folder \react-frontend\node_modules and the file package-lock.json
-    9.2: Rerun the command npm install
-    9.3: Rerun the command np start
-10: To open up the app, on your webbrowser and search http://localhost:8081/.
-11: To close the app, on each command prombt press ctrl+c and confirm to stop the back/frontend.
+```
+OBS: The database consists in two DinamodDB collecations named as **books** and **users**.
+
+* Yo can check to see if the backend is running accessing the url **http://localhost:8080/**
+
+```bash
+$ curl http://localhost:8080/
+```
+
+## Running the frontend
+
+* In the project folder, Change directory into /nem-backend and run **npm install** to install the npm packages dependencies and **npm start** to start the backend.
+
+```bash
+$ npm install 
+$ npm start 
+```
+* The app should open on your webbrowser http://localhost:8081/. If for any reason the frontend does not load on the port 8081, create a **.env** file in the /frontend root folder with the content below.
+
+```bash
+cat frontend/.env
+PORT=8081
+```
+

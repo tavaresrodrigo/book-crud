@@ -1,4 +1,5 @@
-import http from "../http-common";
+import { httpAuth } from "../http-common"
+const http = httpAuth ()
 
 class UserDataService {
   getAll() {
@@ -23,10 +24,6 @@ class UserDataService {
 
   findByEmail(email) {
     return http.get(`/users?email=${email}`);
-  }
-
-  login(username, password) {
-    return http.get(`/login?username=${username}&password=${password}`)
   }
 }
 

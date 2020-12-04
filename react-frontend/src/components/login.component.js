@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import UserDataService from "../services/user.service";
+import AuthDataService from "../services/auth.service";
 import Cookies from 'universal-cookie';
+import { withRouter } from "react-router-dom";
 const cookies = new Cookies();
 
-export default class User extends Component {
+
+class Login extends Component {
   constructor(props) {
     super(props);
     this.username = ""
@@ -21,14 +23,19 @@ export default class User extends Component {
   }
 
 connect () {
-UserDataService.login(this.username, this.password).then((response) => { 
-  console.log(response.data.id)
-  console.log(response.data.password)
+  console.log(this.username)
+  console.log(this.password)
+  cookies.set("id", "")
+  cookies.set("password", "")
+AuthDataService.login(this.username, this.password).then((response) => { 
   cookies.set("id", response.data.id)
   cookies.set("password", response.data.password)
+  this.props.history.push("books")
 })
 .catch((err) => {
-  console.log("Authentication failed")
+  console.log("Authentication failed, please inform the correct credentials")
+  console.log(cookies.get('id'))
+  console.log(cookies.get('password'))
 });
 
 
@@ -45,28 +52,28 @@ handlePasswordChange (event) {
     const { currentUser } = this.state;
 
     return (
-      <div>
+      <div className="d-flex justify-content-around">
         {currentUser ? (
-          <div className="edit-form">
-            <h4>User Login</h4>
-            <form>
-
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
+          <div className = "card">
+            
+            <form className="text-center border border-light p-3">
+            <p className="h4 mb-4">Sign in</p>
+              <div className="text-center border border-light p-3">
+                <label htmlFor="email"> User Email</label>
                 <input
-                  type="text"
-                  className="form-control"
-                  id="username"
+                  type="email"
+                  className="defaultLoginFormEmail"
+                  id="email"
                   value={this.state.username}
                   onChange={this.handleUsernameChange.bind(this)} 
                 />
               </div>
 
-              <div className="form-group">
+              <div className="text-center border border-light p-1">
                 <label htmlFor="password">Password</label>
                 <input
                   type="password"
-                  className="form-control"
+                  className="defaultLoginFormPassword"
                   id="password"
                   value={this.state.password}
                   onChange={this.handlePasswordChange.bind(this)} 
@@ -76,7 +83,7 @@ handlePasswordChange (event) {
             </form>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-success"
               onClick={this.connect.bind(this)}
             >
               Login
@@ -87,3 +94,5 @@ handlePasswordChange (event) {
     );
   }
 }
+
+export default withRouter(Login)

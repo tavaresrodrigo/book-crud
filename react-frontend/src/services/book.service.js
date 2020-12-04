@@ -1,4 +1,5 @@
-import http from "../http-common";
+import { httpAuth } from "../http-common"
+const http = httpAuth ()
 
 class BookDataService {
   getAll() {

@@ -37,7 +37,7 @@ exports.login = (req, res) => {
   const username = req.query.username;
   const password = req.query.password;
   var condition = username ? { username: { $regex: new RegExp(username), $options: "i" } } : {};
-  
+  console.log("Login do frontend", username, password,req.query)
   User.findOne(condition)
     .then(data => {
       console.log(data, password)

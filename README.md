@@ -28,7 +28,6 @@ $ npm start
 ```
 * The last command will show you a list of apis routes being exposed by the backend. 
 ```
-$node server.js
 Server is running on port 8080.
 [
   { path: '/', methods: [ 'GET' ], middleware: [ 'anonymous' ] },

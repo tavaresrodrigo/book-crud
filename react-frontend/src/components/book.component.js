@@ -16,6 +16,7 @@ export default class Book extends Component {
     this.updateBook = this.updateBook.bind(this);
     this.deleteBook = this.deleteBook.bind(this);
 
+    //The default state for input
     this.state = {
       currentBook: {
         id: null,
@@ -183,6 +184,7 @@ export default class Book extends Component {
       });
   }
 
+  //Removes the book from the database
   deleteBook() {    
     BookDataService.delete(this.state.currentBook.id)
       .then(response => {

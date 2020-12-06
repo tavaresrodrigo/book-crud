@@ -155,13 +155,18 @@ export default class AddUser extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="image">Image</label>
-              <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept=".jpeg , jpg"/> 
-            </div>
-
+              <label htmlFor="image">Profile Picture *Only accepts .jpeg/jpg</label>
+              </div>
+              <div>
+              <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept="image/jpg, image/jpeg"/> 
+              </div>
+              <div>
+              
+                <br></br>
             <button onClick={this.saveUser} className="btn btn-success">
               Submit
             </button>
+            </div>
           </div>
         )}
       </div>

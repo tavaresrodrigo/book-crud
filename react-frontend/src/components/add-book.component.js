@@ -12,6 +12,8 @@ export default class AddBook extends Component {
     this.onChangeImage = this.onChangeImage.bind(this);
     this.saveBook = this.saveBook.bind(this);
     this.newBook = this.newBook.bind(this);
+    
+    //The default state for input
     this.state = {
       id: null,
       title: "",
@@ -30,6 +32,8 @@ export default class AddBook extends Component {
       "reqauthor"
       ]
   }
+
+  //Called when you change a character in the title box
   onChangeTitle(e) {
     //this checks to see if the value  is empty, if so it deletes it from the req array
     if(e.target.value !==""){
@@ -38,6 +42,7 @@ export default class AddBook extends Component {
       this.req.splice(index, 1);
       }
     }
+    //Removes reqtitle form the required values, if the box is empty it adds it back to the array
     else{
       var index = this.req.indexOf("reqtitle")
       if (index === -1) {
@@ -48,12 +53,14 @@ export default class AddBook extends Component {
       title: e.target.value
     });
   }
+  
   onChangeDescription(e) {
     this.setState({
       description: e.target.value
     });
   }
   onChangeAuthor(e) {
+    //same as the required checker in the change title just above
     if(e.target.value !==""){
       var index = this.req.indexOf("reqauthor")
       if (index !== -1) {
@@ -92,6 +99,8 @@ export default class AddBook extends Component {
       genre: e.target.value
     });
   }
+
+  //reads and converts image uploaded to base64
   _handleReaderLoaded = (readerEvt) => {
     let binaryString = readerEvt.target.result
     this.setState({
@@ -117,6 +126,8 @@ onChangeImage = e => {
     });};
   ;
   }
+
+  //Used when submit is clicked, saves the states as data and submits it
   saveBook() {
     var data = {
       title: this.state.title,
@@ -161,6 +172,8 @@ onChangeImage = e => {
       submitted: false
     });
   }
+
+  //Shows the form UI to the user
   render() {
     return (
       <div className="submit-form">
@@ -255,6 +268,7 @@ onChangeImage = e => {
                 <input type="file" onChange={this.onChangeImage}  name="image" id="file" accept="image/jpg, image/jpeg"/> 
                 <br></br>
                 <br></br>
+                {/* The button is disabled unless the required array is empty */}
                 <button onClick={this.saveBook} disabled={this.req.length!==0}  className="btn btn-success">
               Submit
             </button> 

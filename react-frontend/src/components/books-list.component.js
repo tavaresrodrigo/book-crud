@@ -24,6 +24,7 @@ export default class BooksList extends Component {
     this.retrieveBooks();
   }
 
+   //Searches for the title entered
   onChangeSearchTitle(e) {
     const searchTitle = e.target.value;
 

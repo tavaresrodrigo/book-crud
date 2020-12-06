@@ -32,6 +32,7 @@ connect () {
     this.props.history.push("books")
   })
   .catch((err) => {
+    alert("Authentication failed, please inform the correct credentials")
     console.log("Authentication failed, please inform the correct credentials")
     console.log(cookies.get('id'))
     console.log(cookies.get('password'))

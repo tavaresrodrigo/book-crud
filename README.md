@@ -74,4 +74,12 @@ $ npm start
 cat frontend/.env
 PORT=8081
 ```
+## Online Resources Used 
 
+* https://www.youtube.com/watch?v=7CqJlxBYj-M&feature=youtu.be&ab_channel=freeCodeCamp.org
+* https://bezkoder.com/react-node-express-mongodb-mern-stack/
+* https://medium.com/@blturner3527/storing-images-in-your-database-with-base64-react-682f5f3921c2
+* https://www.geeksforgeeks.org/file-uploading-in-react-js/
+* https://bezkoder.com/react-express-authentication-jwt/
+* https://bezkoder.com/node-js-mongodb-auth-jwt/
+* https://medium.com/swlh/how-to-create-your-first-mern-mongodb-express-js-react-js-and-node-js-stack-7e8b20463e66

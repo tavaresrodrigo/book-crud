@@ -83,3 +83,8 @@ PORT=8081
 * https://bezkoder.com/react-express-authentication-jwt/
 * https://bezkoder.com/node-js-mongodb-auth-jwt/
 * https://medium.com/swlh/how-to-create-your-first-mern-mongodb-express-js-react-js-and-node-js-stack-7e8b20463e66
+* https://github.com/bezkoder/node-express-mongodb
+* bezkoder/react-crud-web-api
+* https://stackoverflow.com/questions/36280818/how-to-convert-file-to-base64-in-javascript
+* https://react-bootstrap.github.io/components/alerts/
+* https://react-bootstrap.netlify.app/components/forms/#forms

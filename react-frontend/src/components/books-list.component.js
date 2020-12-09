@@ -42,6 +42,7 @@ export default class BooksList extends Component {
         console.log(response.data);
       })
       .catch(e => {
+        alert("You must be logged in")
         console.log(e);
       });
   }

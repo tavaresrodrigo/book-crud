@@ -22,9 +22,18 @@ class UserDataService {
     return http.delete(`/users/${id}`);
   }
 
+// Find by email not working yet, need to investigate.
+/*
   findByEmail(email) {
     return http.get(`/users?email=${email}`);
   }
+*/
+  findByUsername(username) {
+    return http.get(`/users?username=${username}`);
+  }
 }
+
+
+
 
 export default new UserDataService();

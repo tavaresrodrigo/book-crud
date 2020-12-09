@@ -1,5 +1,7 @@
 const db = require("../models");
-const User = db.users; 
+const User = db.users;
+
+// Middleware  for the Authentication
 
 exports.middlewareAuth = (req, res, next) => {
   const id = req.query.id;
@@ -8,7 +10,7 @@ exports.middlewareAuth = (req, res, next) => {
     .then(data => {
       if (data.password == password) {
         next()
-    } else {
+      } else {
         res.status(403).send({
           message:
             err.message || "Bad Password"

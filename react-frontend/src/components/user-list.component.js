@@ -76,7 +76,8 @@ export default class UsersList extends Component {
       currentIndex: -1
     });
 
-    UserDataService.findByEmail(this.state.searchEmail)
+    // Connecting to DataService to get user by username
+    UserDataService.findByUsername(this.state.searchEmail)
       .then(response => {
         this.setState({
           users: response.data
@@ -98,7 +99,7 @@ export default class UsersList extends Component {
             <input
               type="text"
               className="form-control"
-              placeholder="Search by email"
+              placeholder="Search by username"
               value={searchEmail}
               onChange={this.onChangeSearchEmail}
             />
@@ -119,16 +120,16 @@ export default class UsersList extends Component {
           <ul className="list-group">
             {users &&
               users.map((user, index) => (
-                  <li
-                    className={
-                      "list-group-item " +
-                      (index === currentIndex ? "active" : "")
-                    }
-                    onClick={() => this.setActiveUser(user, index)}
-                    key={index}
-                  >
-                    {user.username}
-                  </li>
+                <li
+                  className={
+                    "list-group-item " +
+                    (index === currentIndex ? "active" : "")
+                  }
+                  onClick={() => this.setActiveUser(user, index)}
+                  key={index}
+                >
+                  {user.email}
+                </li>
               ))}
           </ul>
         </div>
@@ -148,9 +149,9 @@ export default class UsersList extends Component {
                 </label>{" "}
                 {currentUser.username}
               </div>
-    
+
               <div>
-                <img src={"data:image/jpeg;base64,"+currentUser.image} width="40%" height="40%" max-width="500px" max-height="500px"/>
+                <img alt="User" src={"data:image/jpeg;base64," + currentUser.image} width="40%" height="40%" max-width="500px" max-height="500px" />
               </div>
 
               <Link

@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie';
 import { withRouter } from "react-router-dom";
 const cookies = new Cookies();
 
-
+// Defining the class login 
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -22,41 +22,42 @@ class Login extends Component {
     };
   }
 
-connect () {
-  cookies.set("id", "")
-  cookies.set("password", "")
+// Retrieving the user information via DataService 
+  connect() {
+    cookies.set("id", "")
+    cookies.set("password", "")
+// Setting the user information in the cookies
+    AuthDataService.login(this.username, this.password).then((response) => {
+      cookies.set("id", response.data.id)
+      cookies.set("password", response.data.password)
+      this.props.history.push("books")
+    })
+      .catch((err) => {
+        alert("Authentication failed, please inform the correct credentials")
+        console.log("Authentication failed, please inform the correct credentials")
+        console.log(cookies.get('id'))
+        console.log(cookies.get('password'))
+      });
 
-  AuthDataService.login(this.username, this.password).then((response) => { 
-    cookies.set("id", response.data.id)
-    cookies.set("password", response.data.password)
-    this.props.history.push("books")
-  })
-  .catch((err) => {
-    alert("Authentication failed, please inform the correct credentials")
-    console.log("Authentication failed, please inform the correct credentials")
-    console.log(cookies.get('id'))
-    console.log(cookies.get('password'))
-  });
 
+  }
 
-}
+  handleUsernameChange(event) {
+    this.username = event.target.value
+  }
 
-handleUsernameChange (event) {
-  this.username = event.target.value 
-}
-
-handlePasswordChange (event) {
- this.password = event.target.value
-}
+  handlePasswordChange(event) {
+    this.password = event.target.value
+  }
   render() {
     const { currentUser } = this.state;
 
     return (
       <div className="d-flex justify-content-around">
         {currentUser ? (
-          <div className = "card">
+          <div className="card">
             <form className="text-center border border-light p-3">
-            <p className="h4 mb-4">Sign in</p>
+              <p className="h4 mb-4">Sign in</p>
               <div className="text-center p-3">
                 <label className="text-center  p-3" htmlFor="email"> User Email</label>
                 <input
@@ -64,7 +65,7 @@ handlePasswordChange (event) {
                   className="defaultLoginFormEmail"
                   id="email"
                   value={this.state.username}
-                  onChange={this.handleUsernameChange.bind(this)} 
+                  onChange={this.handleUsernameChange.bind(this)}
                 />
               </div>
 
@@ -75,10 +76,10 @@ handlePasswordChange (event) {
                   className="defaultLoginFormPassword"
                   id="password"
                   value={this.state.password}
-                  onChange={this.handlePasswordChange.bind(this)} 
+                  onChange={this.handlePasswordChange.bind(this)}
                 />
               </div>
-              
+
             </form>
             <button
               type="submit"
@@ -88,7 +89,7 @@ handlePasswordChange (event) {
               Login
             </button>
           </div>
-        ) :"" }
+        ) : ""}
       </div>
     );
   }

@@ -1,5 +1,5 @@
 const db = require("../models");
-const User = db.users; 
+const User = db.users;
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -17,7 +17,7 @@ exports.create = (req, res) => {
     image: req.body.image,
     admin: req.body.admin ? req.body.admin : false
   });
- 
+
 
   // Save User in the database
   user
@@ -28,23 +28,22 @@ exports.create = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the User."
+          err.message || "An error occurred while creating the User."
       });
     });
 };
 
+// Performing the check during the login
 exports.login = (req, res) => {
   const username = req.query.username;
   const password = req.query.password;
   var condition = username ? { username: { $regex: new RegExp(username), $options: "i" } } : {};
-  console.log("Login do frontend", username, password,req.query)
   User.findOne(condition)
     .then(data => {
-      console.log(data, password)
-      if (data.password == password){
+      if (data.password == password) {
         res.send(data)
-      }else{
-        res.status(401).send({message: "Password does not match"});
+      } else {
+        res.status(401).send({ message: "Password does not match" });
       }
     })
     .catch(err => {

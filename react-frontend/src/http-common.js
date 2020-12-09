@@ -11,7 +11,6 @@ export function httpAuth () {
   });
 
     http.interceptors.request.use(config => {
-      console.log("Config httpCommon: ",config)
       config.params = {
         password: cookies.get("password"),
         id: cookies.get("id"),

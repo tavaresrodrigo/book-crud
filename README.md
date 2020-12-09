@@ -70,8 +70,7 @@ $ npm start
 * The app should open on your webbrowser http://localhost:8081/. If for any reason the frontend does not load on the port 8081, create a **.env** file in the /frontend root folder with the content below.
 
 ```bash
-cat frontend/.env
-PORT=8081
+echo "PORT=8081" > react-frontend/.env
 ```
 ## Online Resources Used 
 
